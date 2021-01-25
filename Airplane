@@ -1,0 +1,92 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Airplane {
+    private Airline airline;
+    private static int numberInc;
+    private int number;
+    private int size;
+    private List<List<Seat>> seats;
+
+    public Airplane(Airline airline, int size) {
+        this.airline = airline;
+        numberInc++;
+        this.number = numberInc;
+        this.size = size;
+        seats = new ArrayList<>();
+        for(int i=1; i<=size/6; i++) {
+            List<Seat> seatsInRow = new ArrayList<Seat>();
+            for(int j=1; j<=6; j++) {
+                seatsInRow.add(new Seat((char)(j+64) + "-" + i));
+            }
+            this.seats.add(seatsInRow);
+        }
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void reserveSeat(Seat choice) {
+        for(List<Seat> seatlist : seats) {
+            for(Seat seat : seatlist) {
+                if(seat.getSeatNum().equals(choice.getSeatNum())) {
+                    seat.occupy();
+                }
+            }
+        }
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void getSeats() {
+        for(List<Seat> seats : this.seats) {
+            System.out.println(seats);
+        }
+
+
+    }
+
+    public int getAvailability(){
+        int available = 0;
+        for(List<Seat> seats : this.seats) {
+            for(Seat seat : seats) {
+                if(!seat.getOccupied()) {
+                    available += 1;
+                }
+            }
+        }
+        return available;
+    }
+
+    public boolean isSeatAvailable(Seat checkSeat) {
+        boolean availability = true;
+        for(List<Seat> seats : this.seats) {
+            for(Seat seat : seats) {
+                if(seat.getSeatNum().equals(checkSeat.getSeatNum())) {
+                    if(seat.getOccupied() == true) {
+                        availability = false;
+                    }
+                    else{
+                        availability = true;
+                    }
+                }
+            }
+        }
+        return availability;
+    }
+
+    public int getFlightNum() {
+        return this.number;
+    }
+
+    @Override
+    public String toString() {
+        return "Airline{" +
+                "name='" + number + '\'' +
+                ", size=" + size +
+                '}';
+    }
+}
