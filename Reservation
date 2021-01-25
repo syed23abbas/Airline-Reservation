@@ -1,0 +1,38 @@
+import java.util.Scanner;
+
+public class Reservation {
+    private String depart;
+    private String arrive;
+    private Airport airport;
+    private Airline airline;
+    private Seat seat;
+    private int price;
+
+    public Reservation(String depart, String arrive, Airport airport, Airline airline, Seat seat) {
+        this.depart = depart;
+        this.arrive = arrive;
+        this.airport = airport;
+        this.airline = airline;
+        this.seat = seat;
+    }
+
+    public String getDepart() {
+        return depart;
+    }
+
+    public String getArrive() {
+        return arrive;
+    }
+
+    public Airport getAirport() {
+        return airport;
+    }
+
+    public Airline getAirline() {
+        return airline;
+    }
+
+    public int price() {
+        return this.airport.getTaxRate() * this.airline.getPrice();
+    }
+}
