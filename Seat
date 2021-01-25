@@ -1,0 +1,32 @@
+public class Seat {
+    private String seatNum;
+    private boolean occupied = false;
+
+    public Seat(String seatNum) {
+        this.seatNum = seatNum;
+    }
+
+    public String getSeatNum() {
+        return seatNum;
+    }
+
+    public void occupy() {
+        this.occupied = true;
+    }
+
+    public void unoccupy() {
+        this.occupied = false;
+    }
+
+    public boolean getOccupied() {
+        return this.occupied;
+    }
+
+    @Override
+    public String toString() {
+        return "Seat{" +
+                "seatNum='" + seatNum + '\'' +
+                ", occupied=" + occupied +
+                '}';
+    }
+}
