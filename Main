@@ -1,0 +1,117 @@
+import java.util.Locale;
+import java.util.Scanner;
+import java.util.Random;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        System.out.println("Welcome to Syed's Airline Reservation System!");
+        int input = 0;
+        outer:
+        while(input != 5) {
+            System.out.println("Please pick an option below by entering the corresponding number.");
+            System.out.println("1. Check which airports are available for travel.\n" +
+                    "2. Make a reservation.\n3. Track a flight\n4. Cancel a reservation\n5. Quit");
+            input = s.nextInt();
+            if (input == 1) {
+                System.out.println("Currently, we provide reservations at the following airports:\n" +
+                        "1. O'Hare\n2. Midway\n3. LAX\n4. Oakland\n5. MLK");
+            }
+            else if (input == 2) {
+                System.out.println("Please enter your departure date ('MM-DD')");
+                s.nextLine();
+                String depart = s.nextLine();
+                System.out.println("Please enter your arrival date ('MM-DD')");
+                //s.nextLine();
+                String arrive = s.nextLine();
+                System.out.println("Select the airport for your departure\n" +
+                        "1. O'Hare\n2. Midway\n3. LAX\n4. Oakland\n5. MLK");
+                //s.nextLine();
+                int airport = s.nextInt();
+                String airportDepart = "";
+                switch(airport) {
+                    case 1:
+                        airportDepart = "O'Hare";
+                        break;
+                    case 2:
+                        airportDepart = "Midway";
+                        break;
+                    case 3:
+                        airportDepart = "LAX";
+                        break;
+                    case 4:
+                        airportDepart = "Oakland";
+                        break;
+                    case 5:
+                        airportDepart = "MLK";
+                        break;
+                    case 6:
+                        continue outer;
+                    default:
+                        System.out.println("Not a valid selection. Please choose one of the airports listed or enter '6' to return to main menu.");
+                }
+                int taxUpperBound = 20;
+                Random taxRand = new Random();
+                int tax = taxRand.nextInt(taxUpperBound);
+                Airport airportChoice = new Airport(airportDepart, tax);
+                System.out.println("Please select from one of the available airlines.\n1. Spirit\n2. United Airlines\n3. American Airlines\n4. Northwest");
+                s.nextLine();
+                int airlinenum = s.nextInt();
+                String airline = "";
+                switch(airlinenum) {
+                    case 1:
+                        airline = "Spirit";
+                        break;
+                    case 2:
+                        airline = "United Airlines";
+                        break;
+                    case 3:
+                        airline = "American Airline";
+                        break;
+                    case 4:
+                        airline = "Northwest";
+                        break;
+                    case 5:
+                        continue outer;
+                    default:
+                        System.out.println("Please Enter a valid airline selection or enter 5 to return to main menu.");
+                }
+                Airline airlineChoice = new Airline(airline, 75 * airlinenum);
+                Airplane customerPlane = new Airplane(airlineChoice, 120);
+                System.out.println("For your flight, there are " + customerPlane.getAvailability() + " seats available.");
+                System.out.println("This is the planes seat-layout:");
+                customerPlane.getSeats();
+                System.out.println("Please enter the row of the seat you would like.");
+                s.nextLine();
+                boolean correctInput = false;
+                while(true) {
+                    String seatRow = s.nextLine();
+                    if (Integer.parseInt(seatRow) < 1 || Integer.parseInt(seatRow) > 20) {
+                        System.out.println("Please enter a valid seat number.");
+                        continue;
+                    }
+                    System.out.println("Now choose a seat.");
+                    String seatLetter = s.nextLine();
+                    seatLetter.toUpperCase();
+                    if(!seatLetter.matches(".*[^A-F].*")) {
+                        System.out.println("You did not enter a valid seat choice, please start again.");
+                        System.out.println("Please enter a valid seat number.");
+                        continue;
+                    }
+                    String finalSeat = seatRow + "-" + seatLetter;
+                    Seat customerSeat = new Seat(finalSeat);
+                    if(customerPlane.isSeatAvailable(customerSeat)) {
+                        customerPlane.reserveSeat(customerSeat);
+                        Reservation reservation = new Reservation(depart, arrive, airportChoice, airlineChoice, customerSeat);
+                        System.out.println("Great, your seat has been reserved!");
+                        break;
+                    }
+                    else{
+                        System.out.println("Sorry, that seat is taken. Enter another seat that is available.");
+                        continue;
+                    }
+                }
+            }
+        }
+    }
+}
