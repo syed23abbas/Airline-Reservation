@@ -1,0 +1,17 @@
+public class Airport {
+    private String name;
+    private int tax;
+
+    public Airport(String name, int tax) {
+        this.name = name;
+        this.tax = tax;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getTaxRate() {
+        return this.tax;
+    }
+}
