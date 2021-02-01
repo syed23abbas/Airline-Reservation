@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Airplane {
     private Airline airline;
-    private static int numberInc;
+    private static int numberInc = 0;
     private int number;
     private int size;
     private List<List<Seat>> seats;
@@ -28,11 +28,13 @@ public class Airplane {
     }
 
     public void reserveSeat(Seat choice) {
-        for(List<Seat> seatlist : seats) {
-            for(Seat seat : seatlist) {
-                if(seat.getSeatNum().equals(choice.getSeatNum())) {
-                    seat.occupy();
-                }
+        String rownum = choice.getSeatNum().substring(2);
+        int row = Integer.parseInt(rownum);
+        for(Seat seat : seats.get(row-1)) {
+            if(seat.getSeatNum().equals(choice.getSeatNum())) {
+                seat.occupy();
+                System.out.println("Seat " + seat.getSeatNum() + " occupied");
+                break;
             }
         }
     }
@@ -43,7 +45,10 @@ public class Airplane {
 
     public void getSeats() {
         for(List<Seat> seats : this.seats) {
-            System.out.println(seats);
+            for(Seat seat : seats) {
+                System.out.print(seat + "   ||   ");
+            }
+            System.out.println();
         }
 
 
@@ -66,7 +71,7 @@ public class Airplane {
         for(List<Seat> seats : this.seats) {
             for(Seat seat : seats) {
                 if(seat.getSeatNum().equals(checkSeat.getSeatNum())) {
-                    if(seat.getOccupied() == true) {
+                    if(seat.getOccupied()) {
                         availability = false;
                     }
                     else{
