@@ -2,19 +2,62 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Airline spirit = new Airline("Spirit", 100);
-        Airline united = new Airline("United Airlines", 175);
-        Airline american = new Airline("American Airlines", 200);
-        Airline northwest = new Airline("Northwest", 130);
         Airport ohare = new Airport("O'Hare", 10);
         Airport midway = new Airport("Midway", 8);
         Airport lax = new Airport("LAX", 15);
         Airport oakland = new Airport("Oakland", 9);
         Airport mlk = new Airport("MLK", 8);
-        Airplane spirit0 = new Airplane(spirit, 120);
-        Airplane united1 = new Airplane(united, 120);
-        Airplane american2 = new Airplane(american, 120);
-        Airplane northwest3 = new Airplane(northwest, 120);
+
+        Airline spiO = new Airline("Spirit", 100, ohare);
+        Airline uniO = new Airline("United Airlines", 175, ohare);
+        Airline ameO = new Airline("American Airlines", 200, ohare);
+        Airline norO = new Airline("Northwest", 130, ohare);
+
+        Airline spiM = new Airline("Spirit", 100, midway);
+        Airline uniM = new Airline("United Airlines", 175, midway);
+        Airline ameM = new Airline("American Airlines", 200, midway);
+        Airline norM = new Airline("Northwest", 130, midway);
+
+        Airline spiL = new Airline("Spirit", 100, lax);
+        Airline uniL = new Airline("United Airlines", 175, lax);
+        Airline ameL = new Airline("American Airlines", 200, lax);
+        Airline norL = new Airline("Northwest", 130, lax);
+
+        Airline spiOa = new Airline("Spirit", 100, oakland);
+        Airline uniOa = new Airline("United Airlines", 175, oakland);
+        Airline ameOa = new Airline("American Airlines", 200, oakland);
+        Airline norOa = new Airline("Northwest", 130, oakland);
+
+        Airline spiMl = new Airline("Spirit", 100, mlk);
+        Airline uniMl = new Airline("United Airlines", 175, mlk);
+        Airline ameMl = new Airline("American Airlines", 200, mlk);
+        Airline norMl = new Airline("Northwest", 130, mlk);
+
+        Airplane spirit0 = new Airplane(spiO, 120);
+        Airplane united1 = new Airplane(uniO, 120);
+        Airplane american2 = new Airplane(ameO, 120);
+        Airplane northwest3 = new Airplane(norO, 120);
+
+        Airplane spirit4 = new Airplane(spiM, 120);
+        Airplane united5 = new Airplane(uniM, 120);
+        Airplane american6 = new Airplane(ameM, 120);
+        Airplane northwest7 = new Airplane(norM, 120);
+
+        Airplane spirit8 = new Airplane(spiL, 120);
+        Airplane united9 = new Airplane(uniL, 120);
+        Airplane american10 = new Airplane(ameL, 120);
+        Airplane northwest11 = new Airplane(norL, 120);
+
+        Airplane spirit12 = new Airplane(spiOa, 120);
+        Airplane united13 = new Airplane(uniOa, 120);
+        Airplane american14 = new Airplane(ameOa, 120);
+        Airplane northwest15 = new Airplane(norOa, 120);
+
+        Airplane spirit16 = new Airplane(spiMl, 120);
+        Airplane united17 = new Airplane(uniMl, 120);
+        Airplane american18 = new Airplane(ameMl, 120);
+        Airplane northwest19 = new Airplane(norMl, 120);
+
         Scanner s = new Scanner(System.in);
         System.out.println("Welcome to Syed's Airline Reservation System!");
         int input = 0;
@@ -66,19 +109,19 @@ public class Main {
                 Airplane airplane = null;
                 switch(airlinenum) {
                     case 1:
-                        airline = spirit;
+                        airline = spiO;
                         airplane = spirit0;
                         break;
                     case 2:
-                        airline = united;
+                        airline = uniO;
                         airplane = united1;
                         break;
                     case 3:
-                        airline = american;
+                        airline = ameO;
                         airplane = american2;
                         break;
                     case 4:
-                        airline = northwest;
+                        airline = norO;
                         airplane = northwest3;
                         break;
                     case 5:
@@ -91,10 +134,9 @@ public class Main {
                 airplane.getSeats();
                 System.out.println("Please enter the row of the seat you would like.");
                 s.nextLine();
-                boolean correctInput = false;
                 while(true) {
                     String seatRow = s.nextLine();
-                    if (Integer.parseInt(seatRow) < 1 || Integer.parseInt(seatRow) > 20) {
+                    if (!seatRow.matches(".*\\d.*") || Integer.parseInt(seatRow) < 1 || Integer.parseInt(seatRow) > 20) {
                         System.out.println("Please enter a valid seat number.");
                         continue;
                     }
